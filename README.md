@@ -13,4 +13,5 @@
 
 ### Авторы
 Батник - [@InsaneLuv](https://github.com/InsaneLuv)
+
 Исходники - [notmalware](https://t.me/immalware)
