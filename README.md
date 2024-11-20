@@ -9,3 +9,8 @@
 2. После загрузки файла запустите его
 3. Обязательно перезапустите браузер
 4. Зайдите на сайт chatgpt.com и пользуйтесь без VPN.
+
+
+### Авторы
+Батник - [@InsaneLuv](https://github.com/InsaneLuv)
+Исходники - [notmalware](https://t.me/immalware)
