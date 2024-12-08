@@ -21,20 +21,19 @@ set "HOSTS_PATH=%SystemRoot%\System32\drivers\etc\hosts"
 set "IP=50.7.85.220"
 set "HOSTNAMES=chatgpt.com edgeservices.bing.com ab.chatgpt.com auth.openai.com auth0.openai.com platform.openai.com cdn.oaistatic.com files.oaiusercontent.com cdn.auth0.com tcr9i.chat.openai.com webrtc.chatgpt.com gemini.google.com aistudio.google.com generativelanguage.googleapis.com alkalimakersuite-pa.clients6.google.com copilot.microsoft.com sydney.bing.com claude.ai"
 
-
+REM Создание резервной копии hosts, если она еще не существует
 if not exist "%HOSTS_PATH%.bak" (
     copy "%HOSTS_PATH%" "%HOSTS_PATH%.bak"
     echo Резервная копия hosts создана: hosts.bak
 )
 
-
 set "changes_made=false"
 set "TEMP_FILE=%TEMP%\hosts_new.txt"
 
-
+REM Копирование текущего файла hosts во временный файл
 copy "%HOSTS_PATH%" "%TEMP_FILE%" >nul
 
-
+REM Проверка наличия секции GPT-no-restrictions, если отсутствует — добавление
 findstr /i "### GPT-no-restrictions" "%HOSTS_PATH%" >nul
 if errorlevel 1 (
     echo ### GPT-no-restrictions>>"%TEMP_FILE%"
@@ -42,17 +41,22 @@ if errorlevel 1 (
     echo.>>"%TEMP_FILE%"
 )
 
-
+REM Удаление любых существующих записей для указанных хостнеймов
+echo Удаление существующих записей для указанных хостнеймов...
 for %%H in (%HOSTNAMES%) do (
-    findstr /i /c:"%IP% %%H" "%HOSTS_PATH%" >nul
-    if errorlevel 1 (
-        set "changes_made=true"
-        echo %IP% %%H>>"%TEMP_FILE%"
-        echo + Добавлена запись: %IP% %%H
-    )
+    findstr /i /v "%%H" "%TEMP_FILE%" > "%TEMP_FILE%.tmp"
+    move /Y "%TEMP_FILE%.tmp" "%TEMP_FILE%" >nul
 )
 
+REM Добавление новых записей с правильным IP-адресом
+echo Добавление новых записей...
+for %%H in (%HOSTNAMES%) do (
+    echo %IP% %%H>>"%TEMP_FILE%"
+    echo + Добавлена/Обновлена запись: %IP% %%H
+    set "changes_made=true"
+)
 
+REM Проверка, были ли сделаны изменения
 if "!changes_made!"=="false" (
     color 6
     echo Программа уже была запущена на этом ПК. Повторных запусков не требуется.
@@ -62,7 +66,7 @@ if "!changes_made!"=="false" (
     exit /b
 )
 
-
+REM Перемещение временного файла обратно в hosts
 move /Y "%TEMP_FILE%" "%HOSTS_PATH%" >nul
 if errorlevel 1 (
     echo Ошибка записи в файл hosts. Проверьте права доступа.
