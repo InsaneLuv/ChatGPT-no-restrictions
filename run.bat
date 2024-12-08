@@ -18,7 +18,7 @@ if %errorLevel% neq 0 (
 )
 
 set "HOSTS_PATH=%SystemRoot%\System32\drivers\etc\hosts"
-set "IP=204.12.192.219"
+set "IP=50.7.85.220"
 set "HOSTNAMES=chatgpt.com edgeservices.bing.com ab.chatgpt.com auth.openai.com auth0.openai.com platform.openai.com cdn.oaistatic.com files.oaiusercontent.com cdn.auth0.com tcr9i.chat.openai.com webrtc.chatgpt.com gemini.google.com aistudio.google.com generativelanguage.googleapis.com alkalimakersuite-pa.clients6.google.com copilot.microsoft.com sydney.bing.com claude.ai"
 
 
