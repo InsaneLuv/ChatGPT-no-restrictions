@@ -4,6 +4,10 @@
 
 </div>
 
+### Изменения
+
+Добавляет в файл hosts DNS адреса для переадресации AI - Сервисов
+
 ### Инструкция:
 1. [Скачать файл](https://github.com/InsaneLuv/ChatGPT-no-restrictions/releases/download/main/run.bat).
 2. После загрузки файла запустите его
